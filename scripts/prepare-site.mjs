@@ -5,7 +5,10 @@ const root = new URL('../', import.meta.url);
 const content = JSON.parse(
   await readFile(new URL('src/app/content/site-content.json', root), 'utf8'),
 );
-const origin = new URL(process.env.SITE_ORIGIN ?? 'http://127.0.0.1:4200').origin;
+const siteUrl = new URL(process.env.SITE_ORIGIN ?? 'http://127.0.0.1:4200');
+const origin = siteUrl.origin;
+const basePath = siteUrl.pathname.replace(/\/?$/, '/');
+const deploymentUrl = new URL(basePath, origin);
 const indexable = process.env.SITE_INDEXABLE === 'true';
 assert(
   !indexable || origin.startsWith('https://'),
@@ -18,17 +21,17 @@ const routes = [
     ...content.events.map((event) => `/event/${event.slug}/`),
   ]),
 ];
-const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${routes.map((path) => `  <url><loc>${new URL(path, origin).href}</loc></url>`).join('\n')}\n</urlset>\n`;
+const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${routes.map((path) => `  <url><loc>${new URL(path.slice(1), deploymentUrl).href}</loc></url>`).join('\n')}\n</urlset>\n`;
 await writeFile(new URL('public/sitemap.xml', root), sitemap);
 await writeFile(
   new URL('public/robots.txt', root),
   indexable
-    ? `User-agent: *\nAllow: /\nSitemap: ${origin}/sitemap.xml\n`
+    ? `User-agent: *\nAllow: /\nSitemap: ${new URL('sitemap.xml', deploymentUrl).href}\n`
     : 'User-agent: *\nDisallow: /\n',
 );
 await writeFile(
   new URL('src/app/seo/seo-settings.json', root),
-  `${JSON.stringify({ origin, indexable }, null, 2)}\n`,
+  `${JSON.stringify({ origin, basePath, indexable }, null, 2)}\n`,
 );
 await copyFile(new URL(`public${content.mark.src}`, root), new URL('public/favicon.webp', root));
 console.log(

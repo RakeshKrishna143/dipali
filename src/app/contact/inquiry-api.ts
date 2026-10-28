@@ -8,7 +8,7 @@ export class InquiryApi {
   private readonly http = inject(HttpClient);
 
   submit(payload: InquiryPayload) {
-    return this.http.get<SiteConfiguration>('/site-config.json').pipe(
+    return this.http.get<SiteConfiguration>('site-config.json').pipe(
       switchMap((configuration) => {
         if (
           !configuration.inquiryEndpoint ||

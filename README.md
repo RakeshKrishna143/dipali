@@ -31,6 +31,29 @@ Preview: http://127.0.0.1:4201/. Change `PORT` if needed. This local verificatio
 - `public/assets`: 458 local photographs/logos plus a provenance manifest. No production image hotlinks, live Google review API, tracking scripts or external font requests are used.
 - Legal text and the gallery viewer load only with their respective features.
 
+## GitHub Pages Preview
+
+The workflow in `.github/workflows/deploy.yml` uses GitHub Pages' configured base path and URL. In repository Settings > Pages, select GitHub Actions as the source, then commit/upload the updated source files to `main`. The next workflow run builds and deploys a non-indexed preview with `.nojekyll` and a custom `404.html`.
+
+Image records are normalized once in `ContentRepository` to base-relative `assets/images/...` URLs. This lets the same components work at both `/dipali/` on GitHub Pages and `/` on Hostinger; do not hardcode a repository name into the content records. The inquiry configuration request also respects the document base URL.
+
+To reproduce the current Pages deployment locally from Bash:
+
+```bash
+MSYS_NO_PATHCONV=1 SITE_ORIGIN=https://rakeshkrishna143.github.io/dipali/ SITE_INDEXABLE=false npm run build -- --base-href=/dipali/
+MSYS_NO_PATHCONV=1 PORT=4202 PREVIEW_BASE_PATH=/dipali/ npm run preview
+```
+
+The `MSYS_NO_PATHCONV` setting prevents Git Bash on Windows from converting `/dipali/` into a filesystem path. It is not needed by the Linux GitHub Actions runner. Preview: http://127.0.0.1:4202/dipali/.
+
+In a second Bash terminal, verify images, direct service links, gallery viewing, configuration loading and metadata on desktop/mobile:
+
+```bash
+PLAYWRIGHT_BASE_URL=http://127.0.0.1:4202/dipali/ npm run test:e2e -- e2e/deployment-path.spec.ts
+```
+
+For root-domain Hostinger hosting, use the normal build with the approved `SITE_ORIGIN` and default base href `/`. The Pages prefix belongs to the deployment configuration, not the shared site content.
+
 ## Inquiry Endpoint
 
 Online delivery is intentionally unconfigured. The form validates real fields but never pretends that an inquiry was delivered. Set `inquiryEndpoint` in `public/site-config.json` to an approved HTTPS URL or same-origin path such as `/api/inquiries`, then rebuild or deploy the updated configuration.

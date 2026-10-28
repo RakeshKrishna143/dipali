@@ -35,7 +35,7 @@ describe('InquiryApi', () => {
 
   it('sends one inquiry to the configured endpoint and requires confirmation', async () => {
     const response = firstValueFrom(api.submit(payload));
-    http.expectOne('/site-config.json').flush({ inquiryEndpoint: '/api/inquiries' });
+    http.expectOne('site-config.json').flush({ inquiryEndpoint: '/api/inquiries' });
     const request = http.expectOne('/api/inquiries');
     expect(request.request.method).toBe('POST');
     expect(request.request.body).toEqual(payload);
@@ -46,7 +46,7 @@ describe('InquiryApi', () => {
   it('does not simulate successful delivery when no endpoint is configured', async () => {
     const response = firstValueFrom(api.submit(payload));
     const assertion = expect(response).rejects.toThrow('temporarily unavailable');
-    http.expectOne('/site-config.json').flush({ inquiryEndpoint: '' });
+    http.expectOne('site-config.json').flush({ inquiryEndpoint: '' });
     await assertion;
     http.expectNone('/api/inquiries');
   });
@@ -54,7 +54,7 @@ describe('InquiryApi', () => {
   it('rejects an unconfirmed response without automatically repeating the POST', async () => {
     const response = firstValueFrom(api.submit(payload));
     const assertion = expect(response).rejects.toThrow('could not be confirmed');
-    http.expectOne('/site-config.json').flush({ inquiryEndpoint: '/api/inquiries' });
+    http.expectOne('site-config.json').flush({ inquiryEndpoint: '/api/inquiries' });
     http.expectOne('/api/inquiries').flush({ success: false });
     await assertion;
     http.expectNone('/api/inquiries');
