@@ -36,23 +36,10 @@ jobs:
       - name: Build Angular application
         run: npm run build -- --base-href="/${{ github.event.repository.name }}/"
 
-      - name: Find build output
-        id: output-dir
-        shell: bash
-        run: |
-          index_file=$(find dist -name index.html -type f -print -quit)
-
-          if [ -z "$index_file" ]; then
-            echo "Angular build output index.html was not found."
-            exit 1
-          fi
-
-          echo "artifact_dir=$(dirname "$index_file")" >> "$GITHUB_OUTPUT"
-
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v4
         with:
-          path: ${{ steps.output-dir.outputs.artifact_dir }}
+          path: dist/dipali/browser
 
   deploy:
     environment:
