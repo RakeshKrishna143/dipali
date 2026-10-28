@@ -1,0 +1,32 @@
+:root {
+  --wine: #2b1620;
+  --wine-deep: #190d13;
+  --paper: #faf3ef;
+  --paper-warm: #f3e2df;
+  --ink: #2b1620;
+  --ink-soft: #5c4048;
+  --copper: #c98a6a;
+  --rose: #8f454f;
+  --candle: #f0c8b8;
+  --line: rgb(43 22 32 / 14%);
+  --line-light: rgb(250 243 239 / 20%);
+  --font-display: 'Fraunces', 'Palatino Linotype', Georgia, serif;
+  --font-accent: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'Inter', 'Segoe UI', sans-serif;
+  --gutter: 64px;
+  --header-height: 89px;
+  --section-space: 56px;
+}
+@media (max-width: 900px) {
+  :root {
+    --gutter: 28px;
+    --section-space: 44px;
+  }
+}
+@media (max-width: 540px) {
+  :root {
+    --gutter: 20px;
+    --section-space: 36px;
+    --header-height: 76px;
+  }
+}

@@ -1,0 +1,44 @@
+<header [class.solid]="scrolled() || !home()">
+  <div class="container header-inner">
+    <a routerLink="/" class="brand" aria-label="House of Dipali home"
+      ><img [ngSrc]="mark.src" alt="House of Dipali" width="52" height="50" priority
+    /></a>
+    <nav class="desktop-navigation" aria-label="Primary">
+      @for (item of settings.navigation; track item.path) {
+        <a [routerLink]="item.path" routerLinkActive="active" ariaCurrentWhenActive="page">{{
+          item.label
+        }}</a>
+      }
+    </nav>
+    <a routerLink="/contact" class="button contact-link">Contact Us</a>
+    <button
+      #trigger
+      class="icon-button menu-toggle"
+      aria-label="Open menu"
+      aria-haspopup="dialog"
+      aria-controls="mobile-menu"
+      (click)="openMenu()"
+    >
+      <svg lucideMenu aria-hidden="true"></svg>
+    </button>
+  </div>
+</header>
+<dialog #menu id="mobile-menu" aria-labelledby="menu-title" (close)="restoreFocus()">
+  <h2 id="menu-title" class="sr-only">Navigation</h2>
+  <button class="icon-button close-menu" aria-label="Close menu" (click)="closeMenu()">
+    <svg lucideX aria-hidden="true"></svg>
+  </button>
+  <nav aria-label="Mobile">
+    <a routerLink="/" (click)="closeMenu()">Home</a>
+    @for (item of settings.navigation; track item.path) {
+      <a
+        [routerLink]="item.path"
+        routerLinkActive="active"
+        ariaCurrentWhenActive="page"
+        (click)="closeMenu()"
+        >{{ item.label }}</a
+      >
+    }
+    <a routerLink="/contact" class="button" (click)="closeMenu()">Contact Us</a>
+  </nav>
+</dialog>

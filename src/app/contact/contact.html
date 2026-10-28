@@ -1,0 +1,266 @@
+<app-page-hero [title]="content.pages['/contact/'].title" />
+<section class="section">
+  <div class="container contact-layout">
+    <aside>
+      <span class="eyebrow">Reach Us Directly</span>
+      <h2>We'd love to hear about your event.</h2>
+      <p>
+        Fill out the form and our team will follow up to schedule a complimentary consultation - or
+        reach out directly below.
+      </p>
+      <dl class="contact-details">
+        <div>
+          <svg lucidePhone aria-hidden="true"></svg>
+          <dt>Phone</dt>
+          <dd>
+            <a [href]="settings.phoneHref">{{ settings.phone }}</a>
+          </dd>
+        </div>
+        <div>
+          <svg lucideMail aria-hidden="true"></svg>
+          <dt>Email</dt>
+          <dd>
+            <a [href]="'mailto:' + settings.email">{{ settings.email }}</a>
+          </dd>
+        </div>
+        <div>
+          <svg lucideMapPin aria-hidden="true"></svg>
+          <dt>Studio</dt>
+          <dd>
+            <a [href]="settings.mapUrl" target="_blank" rel="noopener noreferrer">{{
+              settings.address
+            }}</a>
+          </dd>
+        </div>
+      </dl>
+      <h3 class="service-area">Service Area</h3>
+      <p>Long Island, New York City, New Jersey, Connecticut and beyond</p>
+    </aside>
+    <form
+      #formElement
+      [formGroup]="form"
+      (ngSubmit)="submit()"
+      novalidate
+      [attr.aria-busy]="state() === 'pending'"
+    >
+      <div class="honeypot" aria-hidden="true">
+        <label for="company-website">Company Website</label
+        ><input id="company-website" formControlName="website" tabindex="-1" autocomplete="off" />
+      </div>
+      <div class="form-grid">
+        <app-form-field
+          controlId="first-name"
+          label="First Name"
+          [error]="errorFor('firstName')"
+          [count]="form.controls.firstName.value.length"
+          [maximum]="40"
+          ><input
+            id="first-name"
+            formControlName="firstName"
+            autocomplete="given-name"
+            maxlength="40"
+            required
+            [attr.aria-invalid]="!!errorFor('firstName')"
+            aria-describedby="first-name-error"
+        /></app-form-field>
+        <app-form-field
+          controlId="last-name"
+          label="Last Name"
+          [error]="errorFor('lastName')"
+          [count]="form.controls.lastName.value.length"
+          [maximum]="80"
+          ><input
+            id="last-name"
+            formControlName="lastName"
+            autocomplete="family-name"
+            maxlength="80"
+            required
+            [attr.aria-invalid]="!!errorFor('lastName')"
+            aria-describedby="last-name-error"
+        /></app-form-field>
+        <app-form-field
+          controlId="phone"
+          label="Phone"
+          [error]="errorFor('phone')"
+          [count]="form.controls.phone.value.length"
+          [maximum]="10"
+          ><input
+            id="phone"
+            formControlName="phone"
+            type="tel"
+            autocomplete="tel-national"
+            inputmode="numeric"
+            placeholder="1234567890"
+            maxlength="10"
+            required
+            [attr.aria-invalid]="!!errorFor('phone')"
+            aria-describedby="phone-error"
+        /></app-form-field>
+        <app-form-field
+          controlId="email"
+          label="Email"
+          [error]="errorFor('email')"
+          [count]="form.controls.email.value.length"
+          [maximum]="100"
+          ><input
+            id="email"
+            formControlName="email"
+            type="email"
+            autocomplete="email"
+            placeholder="you@email.com"
+            maxlength="100"
+            required
+            [attr.aria-invalid]="!!errorFor('email')"
+            aria-describedby="email-error"
+        /></app-form-field>
+        <app-form-field controlId="event-date" label="Event Date" [error]="errorFor('eventDate')"
+          ><input
+            id="event-date"
+            formControlName="eventDate"
+            type="date"
+            [min]="earliestDate()"
+            required
+            [attr.aria-invalid]="!!errorFor('eventDate')"
+            aria-describedby="event-date-error"
+        /></app-form-field>
+        <app-form-field controlId="event-type" label="Event Type" [error]="errorFor('eventType')"
+          ><select
+            id="event-type"
+            formControlName="eventType"
+            required
+            [attr.aria-invalid]="!!errorFor('eventType')"
+            aria-describedby="event-type-error"
+          >
+            <option value="">Select event type</option>
+            @for (option of options.eventType; track option) {
+              <option [value]="option">{{ option }}</option>
+            }
+          </select></app-form-field
+        >
+        <app-form-field
+          class="full"
+          controlId="event-location"
+          label="Event Location"
+          [error]="errorFor('eventLocation')"
+          [count]="form.controls.eventLocation.value.length"
+          [maximum]="120"
+          ><input
+            id="event-location"
+            formControlName="eventLocation"
+            list="venue-options"
+            placeholder="Venue name or city"
+            maxlength="120"
+            required
+            [attr.aria-invalid]="!!errorFor('eventLocation')"
+            aria-describedby="event-location-error" /><datalist id="venue-options">
+            @for (region of content.venues; track region.region) {
+              @for (venue of region.venues; track venue.name) {
+                <option [value]="venue.name"></option>
+              }
+            }</datalist
+        ></app-form-field>
+        <app-form-field
+          controlId="event-budget"
+          label="Event Budget"
+          [error]="errorFor('eventBudget')"
+          ><select
+            id="event-budget"
+            formControlName="eventBudget"
+            required
+            [attr.aria-invalid]="!!errorFor('eventBudget')"
+            aria-describedby="event-budget-error"
+          >
+            <option value="">Select budget range</option>
+            @for (option of options.budget; track option) {
+              <option [value]="option">{{ option }}</option>
+            }
+          </select></app-form-field
+        >
+        <app-form-field
+          controlId="guest-count"
+          label="Estimated Guest Count"
+          [error]="errorFor('guestCount')"
+          ><input
+            id="guest-count"
+            formControlName="guestCount"
+            type="number"
+            min="1"
+            max="999"
+            step="1"
+            placeholder="150"
+            required
+            [attr.aria-invalid]="!!errorFor('guestCount')"
+            aria-describedby="guest-count-error"
+        /></app-form-field>
+        <app-form-field
+          class="full"
+          controlId="event-message"
+          label="Tell Us About Your Event"
+          [required]="false"
+          [error]="errorFor('message')"
+          [count]="form.controls.message.value.length"
+          [maximum]="5000"
+        >
+          <textarea
+            id="event-message"
+            formControlName="message"
+            rows="5"
+            maxlength="5000"
+            placeholder="Share your vision, must-have details, or anything else we should know."
+            [attr.aria-invalid]="!!errorFor('message')"
+            aria-describedby="event-message-error"
+          ></textarea>
+        </app-form-field>
+        <app-form-field
+          class="full"
+          controlId="referral-source"
+          label="How Did You Hear About Us?"
+          [error]="errorFor('referralSource')"
+          ><select
+            id="referral-source"
+            formControlName="referralSource"
+            required
+            [attr.aria-invalid]="!!errorFor('referralSource')"
+            aria-describedby="referral-source-error"
+          >
+            <option value="">Select an option</option>
+            @for (option of options.referralSource; track option) {
+              <option [value]="option">{{ option }}</option>
+            }
+          </select></app-form-field
+        >
+      </div>
+      <label class="consent"
+        ><input
+          type="checkbox"
+          formControlName="consent"
+          required
+          [attr.aria-invalid]="!!errorFor('consent')"
+          aria-describedby="consent-error"
+        /><span
+          >By checking this box, I agree to be contacted by House of Dipali about my inquiry,
+          including for related marketing communications, per our
+          <a routerLink="/opt-out-preferences">Privacy Policy</a>.</span
+        ></label
+      >
+      <p id="consent-error" class="consent-error">{{ errorFor('consent') }}</p>
+      <button class="button primary submit" type="submit" [disabled]="state() === 'pending'">
+        {{ state() === 'pending' ? 'Sending Inquiry' : 'Submit Inquiry'
+        }}<svg lucideArrowRight aria-hidden="true"></svg>
+      </button>
+      @if (message()) {
+        <div
+          class="status"
+          [class.success]="state() === 'success'"
+          [attr.role]="state() === 'error' ? 'alert' : 'status'"
+        >
+          @if (state() === 'success') {
+            <svg lucideCheck aria-hidden="true"></svg>
+          }
+          <p>{{ message() }}</p>
+        </div>
+      }
+    </form>
+  </div>
+</section>
+<app-testimonials-section />

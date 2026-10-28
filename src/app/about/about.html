@@ -1,0 +1,54 @@
+<app-page-hero [title]="heading.title" />
+<section class="section">
+  <div class="container story-list">
+    @for (section of content.about; track section.title; let index = $index) {
+      <article class="story-row">
+        <div class="photo">
+          <img
+            [ngSrc]="section.image.src"
+            [alt]="section.image.alt"
+            fill
+            [disableOptimizedSrcset]="true"
+            sizes="(max-width: 760px) 100vw, 40vw"
+          />
+        </div>
+        <div>
+          <span class="eyebrow">0{{ index + 1 }}</span>
+          <h2>{{ section.title }}</h2>
+          @for (paragraph of section.paragraphs; track $index) {
+            <p>{{ paragraph }}</p>
+          }
+        </div>
+      </article>
+    }
+  </div>
+</section>
+<section class="section dark">
+  <div class="container">
+    <span class="eyebrow center">Why Families Choose Us</span>
+    <h2 class="center">Craftsmanship, culture, and care - in equal measure.</h2>
+    <div class="card-grid values">
+      @for (value of content.values; track value.title) {
+        <article>
+          <h3>{{ value.title }}</h3>
+          <p>{{ value.description }}</p>
+        </article>
+      }
+    </div>
+    <dl class="stats">
+      <div>
+        <dt>300+</dt>
+        <dd>Celebrations</dd>
+      </div>
+      <div>
+        <dt>100+</dt>
+        <dd>Venues</dd>
+      </div>
+      <div>
+        <dt>10+</dt>
+        <dd>States</dd>
+      </div>
+    </dl>
+  </div>
+</section>
+<app-testimonials-section /><app-consultation-cta />

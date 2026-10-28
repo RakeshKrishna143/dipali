@@ -1,0 +1,128 @@
+:host {
+  display: block;
+}
+header {
+  position: fixed;
+  inset: 0 0 auto;
+  height: var(--header-height);
+  z-index: 30;
+  color: var(--paper);
+  transition: background 0.25s;
+}
+header.solid {
+  background: var(--wine);
+  border-bottom: 1px solid var(--line-light);
+}
+.header-inner {
+  display: flex;
+  align-items: center;
+  gap: 38px;
+  height: 100%;
+}
+.brand {
+  flex-shrink: 0;
+  margin-right: auto;
+}
+.brand img {
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+.desktop-navigation {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex: 1;
+  gap: 24px;
+}
+nav a {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+}
+.desktop-navigation a {
+  padding-block: 15px;
+  border-bottom: 1px solid transparent;
+}
+nav a:hover,
+nav a.active {
+  color: var(--candle);
+  border-bottom-color: var(--copper);
+}
+.contact-link {
+  margin-left: 34px;
+  border-color: var(--line-light);
+  white-space: nowrap;
+}
+.contact-link:hover {
+  background: var(--paper);
+  color: var(--wine);
+}
+.icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border: 1px solid var(--line-light);
+  background: transparent;
+  color: var(--paper);
+}
+.menu-toggle {
+  display: none;
+}
+dialog {
+  position: fixed;
+  inset: 0 0 0 auto;
+  margin: 0;
+  width: min(440px, 100%);
+  height: 100dvh;
+  max-height: 100dvh;
+  max-width: 100%;
+  padding: 90px 30px 40px;
+  background: var(--wine);
+  color: var(--paper);
+  border: 0;
+}
+dialog::backdrop {
+  background: rgb(0 0 0 / 55%);
+}
+dialog nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 80%;
+  gap: 22px;
+}
+dialog nav a {
+  font-size: 17px;
+}
+.close-menu {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+@media (max-width: 1000px) {
+  .header-inner {
+    gap: 16px;
+  }
+  .desktop-navigation {
+    gap: 16px;
+  }
+  nav a {
+    font-size: 11px;
+  }
+  .contact-link {
+    margin-left: 8px;
+  }
+}
+@media (max-width: 760px) {
+  .desktop-navigation,
+  .contact-link {
+    display: none;
+  }
+  .menu-toggle {
+    display: inline-flex;
+  }
+}

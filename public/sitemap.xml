@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>http://127.0.0.1:4200/</loc></url>
+  <url><loc>http://127.0.0.1:4200/gallery/</loc></url>
+  <url><loc>http://127.0.0.1:4200/services/</loc></url>
+  <url><loc>http://127.0.0.1:4200/about/</loc></url>
+  <url><loc>http://127.0.0.1:4200/reviews/</loc></url>
+  <url><loc>http://127.0.0.1:4200/faqs/</loc></url>
+  <url><loc>http://127.0.0.1:4200/venues/</loc></url>
+  <url><loc>http://127.0.0.1:4200/contact/</loc></url>
+  <url><loc>http://127.0.0.1:4200/opt-out-preferences/</loc></url>
+  <url><loc>http://127.0.0.1:4200/service/stage-design/</loc></url>
+  <url><loc>http://127.0.0.1:4200/service/centerpieces/</loc></url>
+  <url><loc>http://127.0.0.1:4200/service/wedding-ceremony-decor/</loc></url>
+  <url><loc>http://127.0.0.1:4200/service/entrance-aisle-decor/</loc></url>
+  <url><loc>http://127.0.0.1:4200/service/personal-flowers/</loc></url>
+  <url><loc>http://127.0.0.1:4200/service/floorwraps/</loc></url>
+  <url><loc>http://127.0.0.1:4200/service/custom-prints-sign/</loc></url>
+  <url><loc>http://127.0.0.1:4200/event/abhi-sravya-wedding-celebration/</loc></url>
+  <url><loc>http://127.0.0.1:4200/event/kevin-and-sanikas-engagement-ceremony/</loc></url>
+  <url><loc>http://127.0.0.1:4200/event/zohas-reception/</loc></url>
+  <url><loc>http://127.0.0.1:4200/event/anjana-niravs-wedding-celebration/</loc></url>
+  <url><loc>http://127.0.0.1:4200/event/sanias-reception/</loc></url>
+  <url><loc>http://127.0.0.1:4200/event/sneha-winstons-wedding-celebration/</loc></url>
+  <url><loc>http://127.0.0.1:4200/event/neha-prateek-wedding-ceremony/</loc></url>
+  <url><loc>http://127.0.0.1:4200/event/rakhee-parth-wedding-celebration/</loc></url>
+  <url><loc>http://127.0.0.1:4200/event/shivani-matt-wedding-package/</loc></url>
+  <url><loc>http://127.0.0.1:4200/event/taylor-priyank-wedding-celebration/</loc></url>
+  <url><loc>http://127.0.0.1:4200/event/nisha-sean-outdoor-wedding-ceremony/</loc></url>
+  <url><loc>http://127.0.0.1:4200/event/melanie-manish-wedding-reception/</loc></url>
+  <url><loc>http://127.0.0.1:4200/event/megha-gopal-wedding-ceremony/</loc></url>
+</urlset>

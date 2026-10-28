@@ -1,0 +1,58 @@
+<footer class="dark">
+  <section class="trust section" aria-label="Trusted venues">
+    <div class="container">
+      <span class="eyebrow">Trusted at Tri-State's Finest Venues</span>
+      <div class="venue-names">
+        @for (venue of settings.trustedVenues; track venue) {
+          <span>{{ venue }}</span>
+        }
+      </div>
+      <a routerLink="/venues" class="text-link">View All Venues</a>
+    </div>
+  </section>
+  <div class="container">
+    <div class="footer-divider" aria-hidden="true"></div>
+    <div class="footer-grid">
+      <div class="studio-summary">
+        <a routerLink="/" aria-label="House of Dipali home"
+          ><img [ngSrc]="logo.src" alt="House of Dipali" width="150" height="79"
+        /></a>
+        <p>{{ settings.description }}</p>
+        <div class="social-links">
+          @for (social of settings.socials; track social.label) {
+            <a
+              [href]="social.url"
+              target="_blank"
+              rel="noopener noreferrer"
+              [attr.aria-label]="'House of Dipali on ' + social.label"
+              >{{ social.label }}</a
+            >
+          }
+        </div>
+      </div>
+      <nav aria-label="Footer">
+        <h2>Explore</h2>
+        @for (item of settings.navigation; track item.path) {
+          <a [routerLink]="item.path">{{ item.label }}</a>
+        }
+        <a routerLink="/venues">Venues</a>
+      </nav>
+      <div class="studio-links">
+        <h2>Studio</h2>
+        <a [href]="settings.mapUrl" target="_blank" rel="noopener noreferrer">{{
+          settings.address
+        }}</a
+        ><a [href]="settings.phoneHref">{{ settings.phone }}</a
+        ><a [href]="'mailto:' + settings.email">{{ settings.email }}</a>
+      </div>
+      <div>
+        <h2>Start Here</h2>
+        <a routerLink="/contact" class="button">Book a Consultation</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; {{ year }} House of Dipali.</span
+      ><a routerLink="/opt-out-preferences">Opt-out Preferences</a>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,155 @@
+:host {
+  display: block;
+}
+.hero {
+  position: relative;
+  min-height: 650px;
+  height: 100svh;
+  max-height: 1200px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+.hero > img {
+  object-fit: cover;
+  object-position: center;
+}
+.hero-scrim {
+  position: absolute;
+  inset: 0;
+  background: rgb(20 12 10 / 48%);
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0;
+  height: 180px;
+  background: linear-gradient(transparent, var(--wine-deep));
+}
+.hero-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding-top: 70px;
+}
+.hero-kicker {
+  text-transform: uppercase;
+  font-size: 14px;
+  letter-spacing: 4px;
+  color: rgb(250 243 239 / 88%);
+}
+h1 {
+  font-size: 120px;
+  line-height: 1.1;
+  margin: 20px 0 24px;
+}
+.hero-actions {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 30px;
+  flex-wrap: wrap;
+}
+.hero .button {
+  border-color: rgb(250 243 239 / 40%);
+}
+.intro {
+  text-align: center;
+}
+.carousel {
+  position: relative;
+}
+.service-track {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: calc((100% - 56px) / 3);
+  gap: 28px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+.service-track::-webkit-scrollbar {
+  display: none;
+}
+.service-track app-service-card {
+  scroll-snap-align: start;
+}
+.carousel-button {
+  position: absolute;
+  top: 40%;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--line-light);
+  border-radius: 50%;
+  background: rgb(43 22 32 / 85%);
+  color: var(--paper);
+}
+.previous {
+  left: -20px;
+}
+.next {
+  right: -20px;
+}
+.carousel-button:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+@media (min-width: 1800px) {
+  h1 {
+    font-size: 154px;
+  }
+}
+@media (max-width: 1100px) {
+  h1 {
+    font-size: 92px;
+  }
+}
+@media (max-width: 900px) {
+  h1 {
+    font-size: 76px;
+  }
+  .service-track {
+    grid-auto-columns: calc((100% - 20px) / 2);
+    gap: 20px;
+  }
+}
+@media (max-width: 540px) {
+  .hero {
+    min-height: 600px;
+    max-height: 900px;
+  }
+  h1 {
+    font-size: 52px;
+  }
+  .hero-kicker {
+    font-size: 11px;
+    letter-spacing: 3px;
+  }
+  .hero-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+  .hero-actions .button {
+    min-width: 230px;
+  }
+  .service-track {
+    grid-auto-columns: 100%;
+  }
+  .previous {
+    left: -10px;
+  }
+  .next {
+    right: -10px;
+  }
+}
+@media (max-height: 550px) and (min-width: 541px) {
+  .hero {
+    min-height: 500px;
+  }
+  h1 {
+    font-size: 64px;
+  }
+}

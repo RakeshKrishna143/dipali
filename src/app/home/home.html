@@ -1,0 +1,76 @@
+<section class="hero dark" aria-labelledby="home-title">
+  <img
+    [ngSrc]="content.hero.src"
+    alt="An elaborate floral wedding setting by House of Dipali"
+    fill
+    priority
+    sizes="100vw"
+  />
+  <div class="hero-scrim" aria-hidden="true"></div>
+  <div class="container hero-content">
+    <span class="hero-kicker">Welcome To</span>
+    <h1 id="home-title">House of Dipali</h1>
+    <p class="hero-kicker">Wedding Decor &amp; Design</p>
+    <div class="hero-actions">
+      <a class="button primary" routerLink="/contact">Book a Consultation</a
+      ><a class="button" routerLink="/gallery">View Gallery</a>
+    </div>
+  </div>
+</section>
+<section class="section intro">
+  <div class="container">
+    <app-section-heading [heading]="content.intro" /><a routerLink="/about" class="text-link"
+      >Learn More About Us</a
+    >
+  </div>
+</section>
+<section class="section dark services">
+  <div class="container">
+    <app-section-heading [heading]="content.services" />
+    <div class="carousel">
+      <div
+        #track
+        class="service-track"
+        (scroll)="updatePosition()"
+        tabindex="0"
+        role="region"
+        aria-label="Wedding decor services"
+      >
+        @for (service of repository.services; track service.slug) {
+          <app-service-card [service]="service" />
+        }
+      </div>
+      <button
+        class="carousel-button previous"
+        aria-label="Previous services"
+        [disabled]="position() < 0.01"
+        (click)="slide(-1)"
+      >
+        <svg lucideChevronLeft aria-hidden="true"></svg></button
+      ><button
+        class="carousel-button next"
+        aria-label="Next services"
+        [disabled]="position() > 0.99"
+        (click)="slide(1)"
+      >
+        <svg lucideChevronRight aria-hidden="true"></svg>
+      </button>
+    </div>
+    <div class="section-actions">
+      <a routerLink="/services" class="button">View All Services</a>
+    </div>
+  </div>
+</section>
+<section class="section">
+  <div class="container">
+    <app-section-heading [heading]="content.events" />
+    <div class="card-grid">
+      @for (event of featuredEvents; track event.slug) {
+        <app-event-card [event]="event" />
+      }
+    </div>
+    <div class="section-actions"><a class="button" routerLink="/gallery">View All Events</a></div>
+  </div>
+</section>
+<app-testimonials-section />
+<app-consultation-cta />
